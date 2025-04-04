@@ -2,7 +2,7 @@
 # Práctica 3 A - Web Server en Modo Estación
 
 ## 1. Descripción
-En esta práctica se implementa un servidor web en modo estación utilizando la placa ESP32-S3. El objetivo es que la placa se conecte a una red Wi-Fi y sirva una página web básica. Este ejercicio forma parte de una serie para comprender el funcionamiento de los periféricos de comunicación como Wi-Fi y Bluetooth.
+En esta práctica se implementa un servidor web en modo estación utilizando la placa ESP32-S3. El objetivo es que la placa se conecte a una red Wi-Fi y sirva una página web básica. Este ejercicio és útil para comprender el funcionamiento de periféricos de comunicación como el Wifi.
 
 ## 2. Objetivos
 - Configurar la ESP32-S3 como cliente de red (modo estación).
@@ -18,8 +18,6 @@ En esta práctica se implementa un servidor web en modo estación utilizando la 
   https://aprendiendoarduino.wordpress.com/2019/10/27/api-rest/  
 - Introducción a MQTT:  
   https://ricveal.com/blog/primeros-pasos-mqtt  
-- Bluetooth clásico en ESP32:  
-  https://randomnerdtutorials.com/esp32-bluetooth-classic-arduino-ide/  
 
 ## 4. Materiales
 - **ESP32-S3**
