@@ -46,11 +46,11 @@ Código cargado en el archivo `main.cpp`:
 #include <WebServer.h>
 
 // SSID & Password
-const char* ssid = "*****"; // Enter your SSID here
-const char* password = "*****"; //Enter your Password here
+const char* ssid = ""Nautilus""; // Enter your SSID here
+const char* password = "20000Leguas"; //Enter your Password here
 
 WebServer server(80); // Object of WebServer(HTTP port, 80 is default)
-
+void handle_root();
 void setup() {
   Serial.begin(115200);
   Serial.println("Try Connecting to ");
