@@ -2,33 +2,33 @@
 # Práctica 3 A - Web Server en Modo Estación
 
 ## 1. Descripción
-En esta práctica se implementa un servidor web en modo estación utilizando la placa ESP32-S3. El objetivo es que la placa se conecte a una red Wi-Fi y sirva una página web básica. Este ejercicio és útil para comprender el funcionamiento de periféricos de comunicación como el Wifi.
+En esta práctica se implementa un servidor web utilizando la ESP32 en modo estación (STA). El objetivo principal es explorar la conectividad WiFi y la comunicación Bluetooth (BT) desde la ESP32, a través de un ejemplo práctico en el que se despliega una página web accesible desde cualquier dispositivo conectado a la misma red.
 
 ## 2. Objetivos
-- Configurar la ESP32-S3 como cliente de red (modo estación).
-- Implementar un servidor web básico que sirva una página HTML.
-- Comprender la interacción entre cliente y servidor en una red local.
+- Comprender el funcionamiento del módulo WiFi en la ESP32 en modo estación.
+- Implementar un servidor web básico que responda a peticiones HTTP.
+- Iniciar el acercamiento a la comunicación Bluetooth.
 
-## 3. Recursos recomendados
-- Fundamentos de protocolos TCP/IP y UDP:  
-  https://www.tlm.unavarra.es/~daniel/docencia/lir/lir05_06/slides/1-Conceptosbasicos.pdf  
-- Introducción al Wi-Fi:  
-  http://www.radiocomunicaciones.net/pdf/curso-iniciacion-wifi.pdf  
-- Conceptos de API REST:  
-  https://aprendiendoarduino.wordpress.com/2019/10/27/api-rest/  
-- Introducción a MQTT:  
-  https://ricveal.com/blog/primeros-pasos-mqtt  
+## 3. Introducción Teórica
+Para poder trabajar con redes WiFi y tecnologías inalámbricas en general, es necesario tener una base conceptual en protocolos de comunicación como TCP/IP y UDP. En esta práctica, se recomienda como lectura previa los siguientes enlaces:
+
+- Protocolos TCP/IP y UDP: [Conceptos básicos](https://www.tlm.unavarra.es/~daniel/docencia/lir/lir05_06/slides/1-Conceptosbasicos.pdf)
+- Fundamentos de WiFi: [Iniciación WiFi](http://www.radiocomunicaciones.net/pdf/curso-iniciacion-wifi.pdf)
+- Introducción a API REST: [API REST Arduino](https://aprendiendoarduino.wordpress.com/2019/10/27/api-rest/)
+- Introducción a MQTT: [Primeros pasos MQTT](https://ricveal.com/blog/primeros-pasos-mqtt)
+- Bluetooth clásico con ESP32: [Tutorial RNT](https://randomnerdtutorials.com/esp32-bluetooth-classic-arduino-ide/)
 
 ## 4. Materiales
 - **ESP32-S3**
-- **Protoboard**
 - **Cable USB tipo C**
-- **Red Wi-Fi disponible**
+- **Ordenador con PlatformIO instalado**
+- **Red WiFi disponible**
 
 ## 5. Desarrollo
 
 ### 5.1 Preparación del Entorno
-1. Se utilizó el siguiente archivo `platformio.ini` para configurar el entorno:
+1. Crear un nuevo proyecto en PlatformIO.
+2. Configurar el archivo `platformio.ini` con el siguiente contenido:
 ```ini
 [env:esp32-s3-devkitm-1]
 platform = espressif32
@@ -36,72 +36,67 @@ board = esp32-s3-devkitm-1
 framework = arduino
 monitor_speed=115200
 ```
-2. Conexión de la placa al ordenador mediante USB.
 
 ### 5.2 Programación del Microcontrolador
-Código cargado en el archivo `main.cpp`:
+Se utilizó el siguiente código para configurar un servidor web básico que responde a la ruta raíz con una página HTML sencilla.
 
 ```cpp
 #include <WiFi.h>
 #include <WebServer.h>
 
-// SSID & Password
-const char* ssid = ""Nautilus""; // Enter your SSID here
-const char* password = "20000Leguas"; //Enter your Password here
+const char* ssid = "Nautilus";
+const char* password = "20000Leguas";
 
-WebServer server(80); // Object of WebServer(HTTP port, 80 is default)
+WebServer server(80);
+
 void handle_root();
+
 void setup() {
-  Serial.begin(115200);
-  Serial.println("Try Connecting to ");
-  Serial.println(ssid);
+    Serial.begin(115200);
+    Serial.println("Try Connecting to ");
+    Serial.println(ssid);
+    WiFi.begin(ssid, password);
 
-  // Connect to your Wi-Fi modem
-  WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.print(".");
+    }
 
-  // Check if Wi-Fi is connected
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.print(".");
-  }
+    Serial.println("");
+    Serial.println("WiFi connected successfully");
+    Serial.print("Got IP: ");
+    Serial.println(WiFi.localIP());
 
-  Serial.println("");
-  Serial.println("WiFi connected successfully");
-  Serial.print("Got IP: ");
-  Serial.println(WiFi.localIP()); // Show ESP32 IP on serial
-
-  server.on("/", handle_root);
-  server.begin();
-  Serial.println("HTTP server started");
-  delay(100);
+    server.on("/", handle_root);
+    server.begin();
+    Serial.println("HTTP server started");
+    delay(100);
 }
 
 void loop() {
-  server.handleClient();
+    server.handleClient();
 }
 
-// HTML content to display on web page
 String HTML = "<!DOCTYPE html><html><body><h1>My Primera Pagina con ESP32 - Station Mode &#128522;</h1></body></html>";
 
-// Handle root url (/)
 void handle_root() {
-  server.send(200, "text/html", HTML);
+    server.send(200, "text/html", HTML);
 }
 ```
 
 **Explicación del código:**
-- Se configura la placa para conectarse a una red Wi-Fi.
-- Se inicializa un servidor web que responde a la raíz `/` con una página HTML sencilla.
-- La IP asignada por la red se muestra por el puerto serie.
+- Se conecta a una red WiFi con las credenciales definidas.
+- Muestra la IP asignada por DHCP.
+- Crea un servidor web en el puerto 80 y define la respuesta para la ruta `/`.
+- Muestra un mensaje HTML al acceder desde un navegador en la red.
 
-### 5.3 Subida y Pruebas
-1. Compilar y subir el código desde PlatformIO.
-2. Observar en el monitor serie la IP asignada.
-3. Ingresar esa IP en un navegador conectado a la misma red.
-4. Visualizar la página HTML enviada por la ESP32.
+### 5.3 Subida del Código al ESP32
+1. Conectar la ESP32-S3 al ordenador.
+2. Compilar y subir el código usando el botón de "Upload" en PlatformIO.
+3. Abrir el monitor serie para verificar la conexión y la IP.
+4. Desde un navegador en la misma red, acceder a la dirección IP mostrada en el monitor serie.
 
 ## 6. Resultados
-- La ESP32 se conecta exitosamente a la red Wi-Fi.
-- La IP es mostrada correctamente en el monitor serie.
-- Al acceder a dicha IP desde un navegador, se visualiza una página HTML simple.
-- La comunicación es estable y permite futuras expansiones como control de GPIOs o lectura de sensores desde la web.
+- El servidor web inicia correctamente y responde a las peticiones desde dispositivos en la misma red.
+- La página web muestra el mensaje: “My Primera Pagina con ESP32 - Station Mode 😊”.
+- Se verificó que la ESP32 recibe una IP válida y que la conexión es estable.
