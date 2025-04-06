@@ -2,12 +2,11 @@
 # Práctica 3 A - Web Server en Modo Estación
 
 ## 1. Descripción
-En esta práctica se implementa un servidor web utilizando la ESP32 en modo estación (STA). El objetivo principal es explorar la conectividad WiFi y la comunicación Bluetooth (BT) desde la ESP32, a través de un ejemplo práctico en el que se despliega una página web accesible desde cualquier dispositivo conectado a la misma red.
+En esta práctica se implementa un servidor web utilizando la ESP32 en modo estación (STA). El objetivo principal es explorar la conectividad WiFi desde la ESP32, a través de un ejemplo práctico en el que se despliega una página web accesible desde cualquier dispositivo conectado a la misma red.
 
 ## 2. Objetivos
 - Comprender el funcionamiento del módulo WiFi en la ESP32 en modo estación.
 - Implementar un servidor web básico que responda a peticiones HTTP.
-- Iniciar el acercamiento a la comunicación Bluetooth.
 
 ## 3. Introducción Teórica
 Para poder trabajar con redes WiFi y tecnologías inalámbricas en general, es necesario tener una base conceptual en protocolos de comunicación como TCP/IP y UDP. En esta práctica, se recomienda como lectura previa los siguientes enlaces:
@@ -16,12 +15,10 @@ Para poder trabajar con redes WiFi y tecnologías inalámbricas en general, es n
 - Fundamentos de WiFi: [Iniciación WiFi](http://www.radiocomunicaciones.net/pdf/curso-iniciacion-wifi.pdf)
 - Introducción a API REST: [API REST Arduino](https://aprendiendoarduino.wordpress.com/2019/10/27/api-rest/)
 - Introducción a MQTT: [Primeros pasos MQTT](https://ricveal.com/blog/primeros-pasos-mqtt)
-- Bluetooth clásico con ESP32: [Tutorial RNT](https://randomnerdtutorials.com/esp32-bluetooth-classic-arduino-ide/)
 
 ## 4. Materiales
 - **ESP32-S3**
 - **Cable USB tipo C**
-- **Ordenador con PlatformIO instalado**
 - **Red WiFi disponible**
 
 ## 5. Desarrollo
