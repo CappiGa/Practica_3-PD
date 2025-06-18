@@ -160,6 +160,7 @@ void loop() {
 ## 6. Resultados
 - El dispositivo ESP32-S3 inicia un servidor BLE con nombre **Yatusah**.
 - Desde la app móvil se logra conectar y recibir valores actualizados de temperatura cada 2 segundos.
+![Image](https://github.com/user-attachments/assets/830b8d53-f435-4e9a-9396-6c2ca1b5ee82)
 - La comunicación es estable y bidireccional (se puede enviar texto desde la app y verlo en el monitor serie).
 
 
