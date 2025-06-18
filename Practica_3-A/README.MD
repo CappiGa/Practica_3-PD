@@ -96,5 +96,5 @@ void handle_root() {
 ## 6. Resultados
 - El servidor web inicia correctamente y responde a las peticiones desde dispositivos en la misma red.
 - La página web muestra el mensaje: “My Primera Pagina con ESP32 - Station Mode 😊”.
-![Image](https://github.com/user-attachments/assets/50a8c1b9-be9b-4ef0-87f4-9a9f19100bc3)
+![Image](https://github.com/user-attachments/assets/4708fdaf-a61b-46a7-aef4-cc5760797583)
 - Se verificó que la ESP32 recibe una IP válida y que la conexión es estable.
